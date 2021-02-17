@@ -1,3 +1,5 @@
+Fork of shapez.io with the intent of making it test some parts of personality... All of the README below is from the original shapez.io game.
+
 # shapez.io
 
 <img src="https://i.imgur.com/Y5Z2iqQ.png" alt="shapez.io Logo">
