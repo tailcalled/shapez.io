@@ -288,6 +288,7 @@ ingame:
     keybindingsOverlay:
         moveMap: Move
         selectBuildings: Select area
+        fastForward: Fast forward
         stopPlacement: Stop placement
         rotateBuilding: Rotate building
         placeMultiple: Place multiple
@@ -1125,6 +1126,7 @@ keybindings:
 
         menuOpenShop: Upgrades
         menuOpenStats: Statistics
+        menuFastForward: Fast Forward
         menuClose: Close Menu
 
         toggleHud: Toggle HUD

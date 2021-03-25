@@ -9,6 +9,7 @@ import { PausedGameSpeed } from "./paused_game_speed";
 import { gGameSpeedRegistry } from "../../core/global_registries";
 import { globalConfig } from "../../core/config";
 import { createLogger } from "../../core/logging";
+import { FastForwardGameSpeed } from "./fast_forward_game_speed";
 
 const logger = createLogger("game_time");
 
@@ -122,7 +123,7 @@ export class GameTime extends BasicSerializableObject {
 
         // Update physics & logic
         while (this.logicTimeBudget >= effectiveDelta) {
-            this.logicTimeBudget -= effectiveDelta;
+            this.logicTimeBudget -= effectiveDelta / this.speed.getTimeMultiplier();
 
             if (!updateMethod()) {
                 // Gameover happened or so, do not update anymore

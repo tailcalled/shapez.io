@@ -88,6 +88,7 @@ export const globalConfig = {
 
     // Global game speed
     gameSpeed: 1,
+    fastForwardSpeed: 3,
 
     warmupTimeSecondsFast: 0.5,
     warmupTimeSecondsRegular: 3,

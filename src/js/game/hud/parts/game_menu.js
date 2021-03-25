@@ -6,6 +6,11 @@ import { T } from "../../../translations";
 import { KEYMAPPINGS } from "../../key_action_mapper";
 import { DynamicDomAttach } from "../dynamic_dom_attach";
 import { TrackedState } from "../../../core/tracked_state";
+import { FastForwardGameSpeed } from "../../time/fast_forward_game_speed";
+import { createLogger } from "../../../core/logging";
+import { RegularGameSpeed } from "../../time/regular_game_speed";
+
+const logger = createLogger("game_menu");
 
 export class HUDGameMenu extends BaseHUDPart {
     createElements(parent) {
@@ -30,6 +35,20 @@ export class HUDGameMenu extends BaseHUDPart {
                 label: "Stats",
                 handler: () => this.root.hud.parts.statistics.show(),
                 keybinding: KEYMAPPINGS.ingame.menuOpenStats,
+                visible: () =>
+                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 3,
+            },
+            {
+                id: "fastforward",
+                label: "Fast Forward",
+                handler: () => {
+                    if (this.root.time.getSpeed() instanceof FastForwardGameSpeed) {
+                        this.root.time.setSpeed(new RegularGameSpeed(this.root));
+                    } else if (this.root.time.getSpeed() instanceof RegularGameSpeed) {
+                        this.root.time.setSpeed(new FastForwardGameSpeed(this.root));
+                    }
+                },
+                keybinding: KEYMAPPINGS.ingame.menuFastForward,
                 visible: () =>
                     !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 3,
             },

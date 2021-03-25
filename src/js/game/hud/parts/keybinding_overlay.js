@@ -193,6 +193,13 @@ export class HUDKeybindingOverlay extends BaseHUDPart {
             },
 
             {
+                // Fast forward
+                label: T.ingame.keybindingsOverlay.fastForward,
+                keys: [k.ingame.menuFastForward],
+                condition: () => !this.anyPlacementActive,
+            },
+
+            {
                 // Place building
                 label: T.ingame.keybindingsOverlay.placeBuilding,
                 keys: [KEYCODE_LMB],
