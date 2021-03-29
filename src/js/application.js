@@ -30,6 +30,7 @@ import { PreloadState } from "./states/preload";
 import { SettingsState } from "./states/settings";
 import { ShapezGameAnalytics } from "./platform/browser/game_analytics";
 import { RestrictionManager } from "./core/restriction_manager";
+import { DataConnection } from "./measurement/DataConnection";
 
 /**
  * @typedef {import("./platform/game_analytics").GameAnalyticsInterface} GameAnalyticsInterface
@@ -118,6 +119,11 @@ export class Application {
         // Store the mouse position, or null if not available
         /** @type {Vector|null} */
         this.mousePosition = null;
+
+        // Personality measurement stuff
+
+        /** @type {DataConnection} */
+        this.dataCollectionServer = new DataConnection(this);
     }
 
     /**

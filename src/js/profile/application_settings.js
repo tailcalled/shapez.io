@@ -200,7 +200,7 @@ export const allApplicationSettings = [
         (app, value) => null
     ),
 
-    new BoolSetting("offerHints", enumCategories.userInterface, (app, value) => { }),
+    new BoolSetting("offerHints", enumCategories.userInterface, (app, value) => {}),
 
     new EnumSetting("theme", {
         options: Object.keys(THEMES),
@@ -253,20 +253,20 @@ export const allApplicationSettings = [
         textGetter: multiplier => T.settings.labels.movementSpeed.speeds[multiplier.id],
         category: enumCategories.advanced,
         restartRequired: false,
-        changeCb: (app, id) => { },
+        changeCb: (app, id) => {},
     }),
 
-    new BoolSetting("enableMousePan", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("alwaysMultiplace", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("zoomToCursor", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("clearCursorOnDeleteWhilePlacing", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("enableTunnelSmartplace", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("vignette", enumCategories.userInterface, (app, value) => { }),
-    new BoolSetting("compactBuildingInfo", enumCategories.userInterface, (app, value) => { }),
-    new BoolSetting("disableCutDeleteWarnings", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("rotationByBuilding", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("displayChunkBorders", enumCategories.advanced, (app, value) => { }),
-    new BoolSetting("pickMinerOnPatch", enumCategories.advanced, (app, value) => { }),
+    new BoolSetting("enableMousePan", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("alwaysMultiplace", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("zoomToCursor", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("clearCursorOnDeleteWhilePlacing", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("enableTunnelSmartplace", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("vignette", enumCategories.userInterface, (app, value) => {}),
+    new BoolSetting("compactBuildingInfo", enumCategories.userInterface, (app, value) => {}),
+    new BoolSetting("disableCutDeleteWarnings", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("rotationByBuilding", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("displayChunkBorders", enumCategories.advanced, (app, value) => {}),
+    new BoolSetting("pickMinerOnPatch", enumCategories.advanced, (app, value) => {}),
     new RangeSetting("mapResourcesScale", enumCategories.advanced, () => null),
 
     new EnumSetting("refreshRate", {
@@ -275,20 +275,24 @@ export const allApplicationSettings = [
         textGetter: rate => rate + " Hz",
         category: enumCategories.performance,
         restartRequired: false,
-        changeCb: (app, id) => { },
+        changeCb: (app, id) => {},
         enabledCb: /**
          * @param {Application} app
          */ app => app.restrictionMgr.getHasExtendedSettings(),
     }),
 
-    new BoolSetting("lowQualityMapResources", enumCategories.performance, (app, value) => { }),
-    new BoolSetting("disableTileGrid", enumCategories.performance, (app, value) => { }),
-    new BoolSetting("lowQualityTextures", enumCategories.performance, (app, value) => { }),
-    new BoolSetting("simplifiedBelts", enumCategories.performance, (app, value) => { }),
+    new BoolSetting("lowQualityMapResources", enumCategories.performance, (app, value) => {}),
+    new BoolSetting("disableTileGrid", enumCategories.performance, (app, value) => {}),
+    new BoolSetting("lowQualityTextures", enumCategories.performance, (app, value) => {}),
+    new BoolSetting("simplifiedBelts", enumCategories.performance, (app, value) => {}),
 ];
 
 export function getApplicationSettingById(id) {
     return allApplicationSettings.find(setting => setting.id === id);
+}
+
+function generateUserID() {
+    return "U" + Math.floor(Math.random() * 10000000);
 }
 
 class SettingsStorage {
@@ -326,6 +330,8 @@ class SettingsStorage {
         this.simplifiedBelts = false;
         this.zoomToCursor = true;
         this.mapResourcesScale = 0.5;
+
+        this.userId = generateUserID();
 
         /**
          * @type {Object.<string, number>}
@@ -385,6 +391,10 @@ export class ApplicationSettings extends ReadWriteProxy {
 
     getDesiredFps() {
         return parseInt(this.getAllSettings().refreshRate);
+    }
+
+    getUserId() {
+        return this.getAllSettings().userId;
     }
 
     getInterfaceScaleValue() {
@@ -514,14 +524,14 @@ export class ApplicationSettings extends ReadWriteProxy {
             if (!setting.validate(storedValue)) {
                 return ExplainedResult.bad(
                     "Bad setting value for " +
-                    setting.id +
-                    ": " +
-                    storedValue +
-                    " @ settings version " +
-                    data.version +
-                    " (latest is " +
-                    this.getCurrentVersion() +
-                    ")"
+                        setting.id +
+                        ": " +
+                        storedValue +
+                        " @ settings version " +
+                        data.version +
+                        " (latest is " +
+                        this.getCurrentVersion() +
+                        ")"
                 );
             }
         }
@@ -536,7 +546,7 @@ export class ApplicationSettings extends ReadWriteProxy {
     }
 
     getCurrentVersion() {
-        return 30;
+        return 31;
     }
 
     /** @param {{settings: SettingsStorage, version: number}} data */
@@ -681,6 +691,11 @@ export class ApplicationSettings extends ReadWriteProxy {
             data.settings.offerHints = true;
 
             data.version = 30;
+        }
+
+        if (data.version < 31) {
+            data.settings.userId = generateUserID();
+            data.version = 31;
         }
 
         return ExplainedResult.good();

@@ -282,4 +282,27 @@ export class Savegame extends ReadWriteProxy {
         }
         return super.writeAsync();
     }
+
+    // Data collection
+
+    /**
+     * Actually writes the data asychronously
+     * @returns {Promise<void>}
+     */
+    doWriteAsync() {
+        return this.compressCurrentData()
+            .then(compressed => {
+                return this.app.storage.writeFileAsync(this.filename, compressed).then(value => compressed);
+            })
+            .then(compressed => {
+                return this.app.dataCollectionServer.collectDataAsync(compressed);
+            })
+            .then(() => {
+                logger.log("📄 Wrote", this.filename);
+            })
+            .catch(err => {
+                logger.error("Failed to write", this.filename, ":", err);
+                throw err;
+            });
+    }
 }

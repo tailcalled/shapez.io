@@ -53,7 +53,6 @@ export class ShapezGameAnalytics extends GameAnalyticsInterface {
         this.syncKey = null;
 
         setInterval(() => this.sendTimePoints(), 60 * 1000);
-
         // Retrieve sync key from player
         return this.app.storage.readFileAsync(analyticsLocalFile).then(
             syncKey => {

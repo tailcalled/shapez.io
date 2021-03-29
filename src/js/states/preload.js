@@ -151,6 +151,8 @@ export class PreloadState extends GameState {
                     return this.app.savegameMgr.writeAsync();
                 });
             })
+            .then(() => this.setStatus("Initializing data stream"))
+            .then(() => this.app.dataCollectionServer.initialize())
 
             .then(() => this.setStatus("Downloading resources"))
             .then(() => {

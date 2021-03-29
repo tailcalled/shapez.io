@@ -145,8 +145,7 @@ export class ReadWriteProxy {
      * @returns {Promise<void>}
      */
     doWriteAsync() {
-        return asyncCompressor
-            .compressObjectAsync(this.currentData)
+        return this.compressCurrentData()
             .then(compressed => {
                 return this.app.storage.writeFileAsync(this.filename, compressed);
             })
@@ -157,6 +156,13 @@ export class ReadWriteProxy {
                 logger.error("Failed to write", this.filename, ":", err);
                 throw err;
             });
+    }
+
+    /**
+     * @returns {Promise<any>}
+     */
+    compressCurrentData() {
+        return asyncCompressor.compressObjectAsync(this.currentData);
     }
 
     // Reads the data asynchronously, fails if verify() fails
@@ -255,7 +261,6 @@ export class ReadWriteProxy {
                     if (contents.version > this.getCurrentVersion()) {
                         return Promise.reject("stored-data-is-newer");
                     }
-
                     if (contents.version < this.getCurrentVersion()) {
                         logger.log(
                             "Trying to migrate data object from version",
