@@ -103,6 +103,7 @@
         "js-yaml": "^3.13.1",
         "postcss-assets": "^5.0.0",
         "postcss-critical-split": "^2.5.3",
+        "postcss-focus": "^5.0.1",
         "postcss-preset-env": "^6.5.0",
         "postcss-round-subpixels": "^1.2.0",
         "postcss-unprefix": "^2.1.3",
