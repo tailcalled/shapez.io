@@ -20,12 +20,12 @@ function gulptasksCSS($, gulp, buildFolder, browserSync) {
     const postcssPlugins = (prod, { cachebust = false }) => {
         const plugins = [postcssAssetsPlugin(cachebust)];
         if (prod) {
-            plugins.unshift(
-                $.postcssUnprefix(),
-                $.postcssPresetEnv({
-                    browsers: ["> 0.1%"],
-                })
-            );
+            //plugins.unshift(
+            //    $.postcssUnprefix(),
+            //    $.postcssPresetEnv({
+            //        browsers: ["> 0.1%"],
+            //    })
+            //);
 
             plugins.push(
                 $.cssMqpacker({
