@@ -319,6 +319,7 @@ gulp.task(
     gulp.series("utils.requireCleanWorkingTree", "build.staging", "ftp.upload.staging")
 );
 gulp.task("main.deploy.prod", gulp.series("utils.requireCleanWorkingTree", "build.prod", "ftp.upload.prod"));
+gulp.task("main.build.prod", gulp.series("utils.requireCleanWorkingTree", "build.prod"));
 gulp.task("main.deploy.all", gulp.series("main.deploy.staging", "main.deploy.prod"));
 gulp.task("main.standalone", gulp.series("build.standalone-prod", "standalone.package.prod"));
 
