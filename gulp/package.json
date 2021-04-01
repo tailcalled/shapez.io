@@ -111,5 +111,8 @@
         "trim": "^0.0.1",
         "webpack-stream": "^5.2.1",
         "yaml-loader": "^0.6.0"
+    },
+    "peerDependencies": {
+        "postcss": "^8.2.9"
     }
 }
