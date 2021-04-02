@@ -260,13 +260,13 @@ function gulptasksHTML($, gulp, buildFolder) {
 
     gulp.task("html.staging", () => {
         return buildHtml("https://api-staging.shapez.io", {
-            analytics: true,
+            analytics: false,
         });
     });
 
     gulp.task("html.prod", () => {
         return buildHtml("https://analytics.shapez.io", {
-            analytics: true,
+            analytics: false,
         });
     });
 
