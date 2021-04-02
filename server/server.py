@@ -19,7 +19,7 @@ async def stream_client_data(websocket, path):
 async def main():
     await database.connect()
     await database.execute(query = "CREATE TABLE IF NOT EXISTS Saves(userId TEXT, storeTime TEXT, compressedSaveData TEXT)")
-    await websockets.serve(stream_client_data, "localhost", 3006)
+    await websockets.serve(stream_client_data, "127.0.0.1", 3006)
 
 asyncio.get_event_loop().run_until_complete(main())
 print("test2")

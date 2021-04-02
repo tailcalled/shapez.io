@@ -21,7 +21,7 @@ export class DataConnection {
             if (host == "localhost") {
                 host = host + ":3006";
             }
-            let socket = new WebSocket("wss://" + host + "orderliness/game_data");
+            let socket = new WebSocket("wss://" + host + "/orderliness/game_data");
             socket.onopen = function (event) {
                 socket.send(userId);
                 resolve(socket);
