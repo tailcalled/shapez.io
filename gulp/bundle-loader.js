@@ -63,9 +63,9 @@
         script.type = "text/javascript";
         script.charset = "utf-8";
         script.defer = true;
-        if (integrity) {
-            script.setAttribute("integrity", integrity);
-        }
+        //if (integrity) {
+        //    script.setAttribute("integrity", integrity);
+        //}
         return script;
     }
 
