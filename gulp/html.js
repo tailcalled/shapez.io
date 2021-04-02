@@ -13,7 +13,7 @@ function gulptasksHTML($, gulp, buildFolder) {
     const commitHash = buildUtils.getRevision();
     async function buildHtml(
         apiUrl,
-        { analytics = false, standalone = false, app = false, integrity = true, enableCachebust = true }
+        { analytics = false, standalone = false, app = false, integrity = true, enableCachebust = false }
     ) {
         function cachebust(url) {
             if (enableCachebust) {
