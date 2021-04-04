@@ -74,6 +74,7 @@ export class RestrictionManager extends ReadWriteProxy {
      * @returns {boolean}
      */
     isLimitedVersion() {
+        return false;
         if (IS_MAC) {
             // On mac, the full version is always active
             return false;
