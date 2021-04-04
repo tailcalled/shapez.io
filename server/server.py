@@ -3,13 +3,21 @@ import websockets
 import lzstring
 from databases import Database
 import datetime
+import os
 
-database = Database("sqlite:///data.db")
+dbpath = "/data.db"
+if os.getcwd().endswith("/server"):
+    print("Sending data to local database")
+    dbpath = "../../../data.db"
+
+database = Database("sqlite://" + dbpath)
 
 async def stream_client_data(websocket, path):
     print("test")
     identifier = await websocket.recv()
     print(f"< {identifier}")
+    count = await database.fetch_all(query = "SELECT COUNT(*) FROM Saves WHERE userId = :userId", values={"userId" : identifier})
+    print(f"Count: " + str(count))
     while True:
         message = await websocket.recv()
         await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =

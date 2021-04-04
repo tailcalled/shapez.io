@@ -19,9 +19,11 @@ export class DataConnection {
         return new Promise((resolve, reject) => {
             let host = window.location.hostname;
             if (host == "localhost") {
-                host = host + ":3006";
+                host = "ws://" + host + ":3006";
+            } else {
+                host = "wss://" + host;
             }
-            let socket = new WebSocket("wss://" + host + "/orderliness/game_data");
+            let socket = new WebSocket(host + "/orderliness/game_data");
             socket.onopen = function (event) {
                 socket.send(userId);
                 resolve(socket);
