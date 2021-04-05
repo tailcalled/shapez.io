@@ -20,7 +20,7 @@ export const KEYMAPPINGS = {
     ingame: {
         menuOpenShop: { keyCode: key("F") },
         menuOpenStats: { keyCode: key("G") },
-        menuFastForward: { keyCode: key("R") },
+        menuFastForward: { keyCode: key("K") },
         menuClose: { keyCode: key("Q") },
 
         toggleHud: { keyCode: 113 }, // F2
