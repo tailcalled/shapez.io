@@ -534,12 +534,14 @@ buildings:
         default:
             name: &belt Conveyor Belt
             description: Transports items, hold and drag to place multiple.
+            description_short: Transports items, hold and drag to place multiple.
 
     # Internal name for the Extractor
     miner:
         default:
             name: &miner Extractor
             description: Place over a shape or color to extract it.
+            description_short: Place over a shape or color to extract it.
 
         chainable:
             name: Extractor (Chain)
@@ -550,6 +552,7 @@ buildings:
         default:
             name: &underground_belt Tunnel
             description: Allows you to tunnel resources under buildings and belts.
+            description_short: Allows you to tunnel resources under buildings and belts.
 
         tier2:
             name: Tunnel Tier II
@@ -560,6 +563,7 @@ buildings:
         default:
             name: &balancer Balancer
             description: Multifunctional - Evenly distributes all inputs onto all outputs.
+            description_short: Multifunctional - Evenly distributes all inputs onto all outputs.
 
         merger:
             name: Merger (compact)
@@ -581,6 +585,7 @@ buildings:
         default:
             name: &cutter Cutter
             description: Cuts shapes from top to bottom and outputs both halves. <strong>If you use only one part, be sure to destroy the other part or it will clog and stall!</strong>
+            description_short: Cuts shapes from top to bottom and outputs both halves.
         quad:
             name: Cutter (Quad)
             description: Cuts shapes into four parts. <strong>If you use only one part, be sure to destroy the other parts or it will clog and stall!</strong>
@@ -589,6 +594,7 @@ buildings:
         default:
             name: &rotater Rotator
             description: Rotates shapes clockwise by 90 degrees.
+            description_short: Rotates shapes clockwise by 90 degrees.
         ccw:
             name: Rotator (CCW)
             description: Rotates shapes counter-clockwise by 90 degrees.
@@ -600,16 +606,18 @@ buildings:
         default:
             name: &stacker Stacker
             description: Combines its inputs, on the same layer if possible, otherwise the right input is stacked on top of the left input.
-
+            description_short: Combines its inputs on the same or on different layers.
     mixer:
         default:
             name: &mixer Color Mixer
             description: Mixes two colors using additive blending.
+            description_short: Mixes two colors using additive blending.
 
     painter:
         default:
             name: &painter Painter
             description: &painter_desc Paints the whole shape on the left input with the color from the top input.
+            description_short: &painter_desc Paints the whole shape on the left input with the color from the top input.
 
         mirrored:
             name: *painter
@@ -627,16 +635,19 @@ buildings:
         default:
             name: &trash Trash
             description: Accepts inputs from all sides and destroys them. Forever.
+            description_short: Accepts inputs from all sides and destroys them. Forever.
 
     storage:
         default:
             name: &storage Storage
             description: Stores excess items, up to a given capacity. Prioritizes the left output and can be used as an overflow gate.
+            description_short: Stores excess items, up to a given capacity. Prioritizes the left output and can be used as an overflow gate.
 
     wire:
         default:
             name: &wire Wire
             description: &wire_desc Transfers signals, which can be items, colours or booleans (1 or 0). Differently-coloured wires do not connect to each other.
+            description_short: &wire_desc Transfers signals, which can be items, colours or booleans (1 or 0). Differently-coloured wires do not connect to each other.
 
         second:
             name: *wire
@@ -646,21 +657,25 @@ buildings:
         default:
             name: &wire_tunnel Wire Crossing
             description: Allows two wires to cross without connecting to each other.
+            description_short: Allows two wires to cross without connecting to each other.
 
     constant_signal:
         default:
             name: &constant_signal Constant Signal
             description: Emits a constant signal, which can be either a shape, color or boolean (1 or 0).
+            description_short: Emits a constant signal, which can be either a shape, color or boolean (1 or 0).
 
     lever:
         default:
             name: &lever Switch
             description: Can be toggled to emit a boolean signal (1 or 0) on the wires layer, which can then be used to control components, for example an item filter.
+            description_short: Can be toggled to emit a boolean signal (1 or 0) on the wires layer.
 
     logic_gate:
         default:
             name: AND Gate
             description: Emits a boolean "1" if both inputs are truthy. (Truthy means shape, color or boolean "1")
+            description_short: Emits a boolean "1" if both inputs are truthy.
         not:
             name: NOT Gate
             description: Emits a boolean "1" if the input is not truthy. (Truthy means shape, color or boolean "1")
@@ -675,6 +690,7 @@ buildings:
         default:
             name: &transistor Transistor
             description: &transistor_desc Forwards the bottom input if the side input is truthy (a shape, color or "1").
+            description_short: &transistor_desc Forwards the bottom input if the side input is truthy.
 
         mirrored:
             name: *transistor
@@ -684,31 +700,37 @@ buildings:
         default:
             name: &filter Filter
             description: Connect a signal to route all matching items to the top and the remaining to the right. Can be controlled with boolean signals too.
+            description_short: Connect a signal to route all matching items to the top and the remaining to the right.
 
     display:
         default:
             name: &display Display
             description: Connect a signal to show it on the display - It can be a shape, color or boolean.
+            description_short: Connect a signal to show it on the display - It can be a shape, color or boolean.
 
     reader:
         default:
             name: &reader Belt Reader
             description: Allows to measure the average belt throughput. Outputs the last read item on the wires layer (once unlocked).
+            description_short: Allows to measure the average belt throughput.
 
     analyzer:
         default:
             name: &analyzer Shape Analyzer
             description: Analyzes the top right quadrant of the lowest layer of the shape and returns its shape and color.
+            description_short: Analyzes the top right quadrant of the lowest layer of the shape and returns its shape and color.
 
     comparator:
         default:
             name: &comparator Compare
             description: Returns boolean "1" if both signals are exactly equal. Can compare shapes, colors and booleans.
+            description_short: Returns boolean "1" if both signals are exactly equal. Can compare shapes, colors and booleans.
 
     virtual_processor:
         default:
             name: &virtual_processor Virtual Cutter
             description: Virtually cuts the shape into two halves.
+            description_short: Virtually cuts the shape into two halves.
 
         rotater:
             name: Virtual Rotator
@@ -730,6 +752,7 @@ buildings:
         default:
             name: Item Producer
             description: Available in sandbox mode only, outputs the given signal from the wires layer on the regular layer.
+            description_short: Available in sandbox mode only, outputs the given signal from the wires layer on the regular layer.
 
 storyRewards:
     # Those are the rewards gained from completing the store

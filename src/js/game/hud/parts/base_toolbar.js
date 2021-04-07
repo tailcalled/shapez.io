@@ -1,11 +1,12 @@
 import { gMetaBuildingRegistry } from "../../../core/global_registries";
 import { STOP_PROPAGATION } from "../../../core/signal";
-import { makeDiv, safeModulo } from "../../../core/utils";
+import { makeDiv, safeModulo, makeButton } from "../../../core/utils";
 import { KEYMAPPINGS } from "../../key_action_mapper";
 import { MetaBuilding } from "../../meta_building";
 import { GameRoot } from "../../root";
 import { BaseHUDPart } from "../base_hud_part";
 import { DynamicDomAttach } from "../dynamic_dom_attach";
+import { T } from "../../../translations";
 
 export class HUDBaseToolbar extends BaseHUDPart {
     /**
@@ -33,7 +34,8 @@ export class HUDBaseToolbar extends BaseHUDPart {
          * metaBuilding: MetaBuilding,
          * unlocked: boolean,
          * selected: boolean,
-         * element: HTMLElement,
+         * container: HTMLElement,
+         * icon: HTMLElement,
          * index: number
          * }>} */
         this.buildingHandles = {};
@@ -57,6 +59,18 @@ export class HUDBaseToolbar extends BaseHUDPart {
 
     initialize() {
         const actionMapper = this.root.keyMapper;
+
+        const minimizeButton = makeButton(this.element, ["obnoxious-button"], "(open toolbar)");
+        this.trackClicks(minimizeButton, () => {
+            if (document.documentElement.getAttribute("toolbar-obnoxious") == "yes") {
+                document.documentElement.setAttribute("toolbar-obnoxious", "no");
+                minimizeButton.innerText = "(open toolbar)";
+            } else {
+                document.documentElement.setAttribute("toolbar-obnoxious", "yes");
+                minimizeButton.innerText = "W MINIMIZE";
+            }
+        });
+
         let rowSecondary;
         if (this.secondaryBuildings.length > 0) {
             rowSecondary = makeDiv(this.element, null, ["buildings", "secondary"]);
@@ -83,10 +97,25 @@ export class HUDBaseToolbar extends BaseHUDPart {
             const itemContainer = makeDiv(
                 this.primaryBuildings.includes(allBuildings[i]) ? rowPrimary : rowSecondary,
                 null,
-                ["building"]
+                ["container"]
             );
-            itemContainer.setAttribute("data-icon", "building_icons/" + metaBuilding.getId() + ".png");
-            itemContainer.setAttribute("data-id", metaBuilding.getId());
+            makeDiv(
+                itemContainer,
+                null,
+                ["obnoxious", "name"],
+                T.buildings[metaBuilding.getId()]["default"].name
+            );
+            const r2 = makeDiv(itemContainer, null, []);
+
+            const icon = makeDiv(r2, null, ["icon"]);
+            icon.setAttribute("data-icon", "building_icons/" + metaBuilding.getId() + ".png");
+            icon.setAttribute("data-id", metaBuilding.getId());
+            makeDiv(
+                r2,
+                null,
+                ["obnoxious", "description"],
+                T.buildings[metaBuilding.getId()]["default"].description_short
+            );
 
             binding.add(() => this.selectBuildingForPlacement(metaBuilding));
 
@@ -96,7 +125,8 @@ export class HUDBaseToolbar extends BaseHUDPart {
 
             this.buildingHandles[metaBuilding.id] = {
                 metaBuilding,
-                element: itemContainer,
+                container: itemContainer,
+                icon: itemContainer,
                 unlocked: false,
                 selected: false,
                 index: i,
@@ -130,7 +160,7 @@ export class HUDBaseToolbar extends BaseHUDPart {
                 const newStatus = handle.metaBuilding.getIsUnlocked(this.root);
                 if (handle.unlocked !== newStatus) {
                     handle.unlocked = newStatus;
-                    handle.element.classList.toggle("unlocked", newStatus);
+                    handle.container.classList.toggle("unlocked", newStatus);
                     recomputeSecondaryToolbarVisibility = true;
                 }
             }
@@ -192,7 +222,7 @@ export class HUDBaseToolbar extends BaseHUDPart {
             const newStatus = handle.metaBuilding === metaBuilding;
             if (handle.selected !== newStatus) {
                 handle.selected = newStatus;
-                handle.element.classList.toggle("selected", newStatus);
+                handle.container.classList.toggle("selected", newStatus);
             }
             if (handle.selected) {
                 this.lastSelectedIndex = handle.index;

@@ -1,3 +1,10 @@
+@mixin ToolbarObnoxious {
+    @at-root html[toolbar-obnoxious="yes"] &,
+        &[toolbar-obnoxious="yes"] {
+        @content;
+    }
+}
+
 .ingame_buildingsToolbar {
     position: absolute;
     @include S(bottom, 5px);
@@ -12,8 +19,29 @@
     transition: transform 120ms ease-in-out;
     will-change: transform;
 
+    .obnoxious-button {
+        float: right;
+        position: absolute;
+        @include S(top, -20px);
+        right: 0;
+        background-color: rgba(240, 241, 243, 0.5);
+        color: #bbb;
+
+        @include ToolbarObnoxious {
+            color: #fff;
+            background-color: #44484a;
+            background: solid;
+        }
+    }
+
     &:not(.visible) {
         transform: translateX(-50%) translateY(#{D(100px)});
+    }
+    @include ToolbarObnoxious {
+        background-color: #44484a;
+        background: solid;
+        bottom: 0;
+        width: 100%;
     }
 
     .buildings {
@@ -22,12 +50,18 @@
         justify-items: center;
         align-self: center;
         grid-row: 2 / 3;
+        grid-auto-columns: 1fr;
 
         background-color: rgba(240, 241, 243, 0.5);
         @include S(border-radius, $globalBorderRadius);
 
         @include DarkThemeOverride {
             background-color: rgba(darken($darkModeGameBackground, 15), 0.95);
+        }
+
+        @include ToolbarObnoxious {
+            width: 100%;
+            background: none;
         }
 
         &.secondary {
@@ -48,21 +82,34 @@
             }
         }
 
-        .building {
+        .container {
             color: $accentColorDark;
             display: flex;
             flex-direction: column;
             position: relative;
             align-items: center;
             justify-content: center;
-            @include S(padding, 5px);
-            @include S(padding-bottom, 1px);
-            @include S(width, 35px);
-            @include S(height, 40px);
+            @include ToolbarObnoxious {
+                align-items: left;
+                justify-content: left;
+                padding: 3px;
+            }
 
-            background: center center / 70% no-repeat;
+            .icon {
+                @include S(padding, 5px);
+                @include S(padding-bottom, 1px);
+                @include S(width, 35px);
+                @include S(height, 40px);
 
-            &:not(.unlocked) {
+                background: center center / 70% no-repeat;
+                @include ToolbarObnoxious {
+                    padding: 0;
+                    display: inline-block;
+                    float: left;
+                }
+            }
+
+            &:not(.unlocked) .icon {
                 @include S(width, 20px);
                 opacity: 0.15;
                 background-image: none !important;
@@ -81,6 +128,25 @@
                         background: uiResource("locked_building.png") center center / #{D(20px)} #{D(20px)}
                             no-repeat;
                     }
+                }
+            }
+
+            .obnoxious {
+                display: none;
+            }
+            @include ToolbarObnoxious {
+                &.unlocked .obnoxious {
+                    display: inline !important;
+                }
+                .obnoxious.description {
+                    @include SuperSmallText;
+                    max-height: 200px;
+                    color: #bbb;
+                }
+                .obnoxious.name {
+                    @include PlainText;
+                    color: #fff;
+                    text-transform: uppercase;
                 }
             }
 
