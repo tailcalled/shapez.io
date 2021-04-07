@@ -175,8 +175,8 @@ export class PreloadState extends GameState {
                         logger.log("Last version:", version, "App version:", G_BUILD_VERSION);
                         this.app.storage.writeFileAsync("lastversion.bin", G_BUILD_VERSION);
                         return version;
-                    })
-                    .then(version => {
+                    });
+                /*.then(version => {
                         let changelogEntries = [];
                         logger.log("Last seen version:", version);
 
@@ -207,7 +207,7 @@ export class PreloadState extends GameState {
                         return new Promise(resolve => {
                             this.dialogs.showInfo(T.dialogs.updateSummary.title, dialogHtml).ok.add(resolve);
                         });
-                    });
+                    });*/
             })
 
             .then(() => this.setStatus("Launching"))
