@@ -140,7 +140,7 @@
                 }
                 .obnoxious.description {
                     @include SuperSmallText;
-                    max-height: 200px;
+                    max-height: 200px; /* todo think about the sizing more explicitly/planned */
                     color: #bbb;
                 }
                 .obnoxious.name {

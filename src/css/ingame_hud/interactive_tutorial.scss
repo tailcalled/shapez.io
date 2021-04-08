@@ -6,6 +6,10 @@
     @include StyleBelowWidth(1430px) {
         @include S(bottom, 10px + 40px);
     }
+    @at-root html[toolbar-obnoxious="yes"] &,
+        &[toolbar-obnoxious="yes"] {
+        @include S(bottom, 130);
+    }
 
     @include S(width, 150px);
 
