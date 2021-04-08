@@ -10,6 +10,7 @@
  *   map: any,
  *   hubGoals: any,
  *   pinnedShapes: any,
+ *   obnoxiousNotifications: any,
  *   waypoints: any,
  *   entities: Array<Entity>,
  *   beltPaths: Array<any>

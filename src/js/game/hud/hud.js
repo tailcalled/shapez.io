@@ -49,6 +49,7 @@ import { HUDStandaloneAdvantages } from "./parts/standalone_advantages";
 import { HUDCatMemes } from "./parts/cat_memes";
 import { HUDTutorialVideoOffer } from "./parts/tutorial_video_offer";
 import { HUDConstantSignalEdit } from "./parts/constant_signal_edit";
+import { HUDObnoxiousNotifications } from "./parts/obnoxious_notifications";
 
 export class GameHUD {
     /**
@@ -92,6 +93,7 @@ export class GameHUD {
             // Must always exist
             pinnedShapes: new HUDPinnedShapes(this.root),
             notifications: new HUDNotifications(this.root),
+            obnoxiousNotifications: new HUDObnoxiousNotifications(this.root),
             settingsMenu: new HUDSettingsMenu(this.root),
             debugInfo: new HUDDebugInfo(this.root),
             dialogs: new HUDModalDialogs(this.root),

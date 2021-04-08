@@ -224,24 +224,27 @@ export class HubGoals extends BasicSerializableObject {
      * Creates the next goal
      */
     computeNextGoal() {
-        const storyIndex = this.level - 1;
+        this.currentGoal = this.computeGoalForLevel(this.level);
+    }
+
+    computeGoalForLevel(level) {
+        const storyIndex = level - 1;
         const levels = this.root.gameMode.getLevelDefinitions();
         if (storyIndex < levels.length) {
             const { shape, required, reward, throughputOnly } = levels[storyIndex];
-            this.currentGoal = {
+            return {
                 /** @type {ShapeDefinition} */
                 definition: this.root.shapeDefinitionMgr.getShapeFromShortKey(shape),
                 required,
                 reward,
                 throughputOnly,
             };
-            return;
         }
 
         //Floor Required amount to remove confusion
-        const required = Math.min(200, Math.floor(4 + (this.level - 27) * 0.25));
-        this.currentGoal = {
-            definition: this.computeFreeplayShape(this.level),
+        const required = Math.min(200, Math.floor(4 + (level - 27) * 0.25));
+        return {
+            definition: this.computeFreeplayShape(level),
             required,
             reward: enumHubGoalRewards.no_reward_freeplay,
             throughputOnly: true,

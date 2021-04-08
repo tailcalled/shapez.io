@@ -1,0 +1,77 @@
+@mixin HiddenNotifications {
+    @at-root html[notifications-obnoxious="no"] &,
+        &[notifications-obnoxious="no"] {
+        @content;
+    }
+}
+
+#ingame_HUD_ObnoxiousNotifications {
+    position: absolute;
+    @include S(left, 170px);
+    @include S(top, 0px);
+    @include PlainText;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 300;
+    background-color: #44484a;
+    @include S(padding, 10px);
+    @include S(width, 200px);
+    @include HiddenNotifications {
+        background-color: transparent;
+    }
+
+    .title {
+        @include PlainText;
+        color: #fff;
+        text-transform: uppercase;
+        @include S(max-width, 140px);
+        @include HiddenNotifications {
+            display: none;
+        }
+    }
+    .members {
+        overflow: hidden;
+        @include S(max-height, 150px);
+        width: 100%;
+        @include HiddenNotifications {
+            display: none;
+        }
+    }
+    .minimize {
+        background-color: #44484a;
+        @include HiddenNotifications {
+            background-color: rgba(240, 241, 243, 0.5);
+            color: #bbb;
+        }
+    }
+    .notification {
+        margin: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .icon {
+            @include S(padding, 5px);
+            @include S(padding-bottom, 1px);
+            @include S(width, 20px);
+            @include S(height, 20px);
+            canvas {
+                @include S(width, 20px);
+                @include S(height, 20px);
+            }
+        }
+        .icon[show-icon="upgrade"] {
+            background-image: uiResource("res/ui/icons/advantage_upgrades.png");
+            @include S(background-size, 20px);
+            background-repeat: no-repeat;
+            background-position: 50%;
+        }
+        .title {
+            @include PlainText;
+            color: #bbb;
+            @include S(margin-left, 5px);
+            vertical-align: center;
+        }
+    }
+}

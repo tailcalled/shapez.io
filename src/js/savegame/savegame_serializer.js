@@ -36,6 +36,7 @@ export class SavegameSerializer {
             entityMgr: root.entityMgr.serialize(),
             hubGoals: root.hubGoals.serialize(),
             pinnedShapes: root.hud.parts.pinnedShapes.serialize(),
+            obnoxiousNotifications: root.hud.parts.obnoxiousNotifications.serialize(),
             waypoints: root.hud.parts.waypoints.serialize(),
             entities: this.internal.serializeEntityArray(root.entityMgr.entities),
             beltPaths: root.systemMgr.systems.belt.serializePaths(),
@@ -132,6 +133,8 @@ export class SavegameSerializer {
         errorReason = errorReason || root.map.deserialize(savegame.map);
         errorReason = errorReason || root.hubGoals.deserialize(savegame.hubGoals, root);
         errorReason = errorReason || root.hud.parts.pinnedShapes.deserialize(savegame.pinnedShapes);
+        //errorReason = errorReason ||
+        root.hud.parts.obnoxiousNotifications.deserialize(savegame.obnoxiousNotifications);
         errorReason = errorReason || root.hud.parts.waypoints.deserialize(savegame.waypoints);
         errorReason = errorReason || this.internal.deserializeEntityArray(root, savegame.entities);
         errorReason = errorReason || root.systemMgr.systems.belt.deserializePaths(savegame.beltPaths);
