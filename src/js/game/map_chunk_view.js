@@ -65,11 +65,13 @@ export class MapChunkView extends MapChunk {
     drawForegroundStaticLayer(parameters) {
         const systems = this.root.systemMgr.systems;
 
+        systems.marker.drawChunkHighlight(parameters, this);
         systems.staticMapEntities.drawChunk(parameters, this);
         systems.lever.drawChunk(parameters, this);
         systems.display.drawChunk(parameters, this);
         systems.storage.drawChunk(parameters, this);
         systems.itemProcessorOverlays.drawChunk(parameters, this);
+        systems.marker.drawChunk(parameters, this);
     }
 
     /**

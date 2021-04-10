@@ -216,6 +216,11 @@ export class MetaBuilding {
         return entity;
     }
 
+    /*
+     * Actually places the entity on the map.
+     */
+    doPlace(entity) {}
+
     /**
      * Returns the sprite for a given variant
      * @param {number} rotationVariant

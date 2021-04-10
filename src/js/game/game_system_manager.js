@@ -24,6 +24,7 @@ import { ItemProcessorOverlaysSystem } from "./systems/item_processor_overlays";
 import { BeltReaderSystem } from "./systems/belt_reader";
 import { FilterSystem } from "./systems/filter";
 import { ItemProducerSystem } from "./systems/item_producer";
+import { MarkerSystem } from "./systems/marker";
 
 const logger = createLogger("game_system_manager");
 
@@ -66,6 +67,9 @@ export class GameSystemManager {
 
             /** @type {StorageSystem} */
             storage: null,
+
+            /** @type {MarkerSystem} */
+            marker: null,
 
             /** @type {WiredPinsSystem} */
             wiredPins: null,
@@ -129,6 +133,8 @@ export class GameSystemManager {
         add("miner", MinerSystem);
 
         add("storage", StorageSystem);
+
+        add("marker", MarkerSystem);
 
         add("itemProcessor", ItemProcessorSystem);
 

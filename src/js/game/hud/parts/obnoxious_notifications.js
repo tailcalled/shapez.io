@@ -17,8 +17,8 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
          * Store a list of notifications
          * @type {Array<string>}
          */
-        this.notifications = ["Notification #1", "Notification #2", "Notification #3"];
-        this.notificationIcons = [null, null, null];
+        this.notifications = [];
+        this.notificationIcons = [];
 
         /**
          * Store handles to the currently rendered elements, so we can update them more

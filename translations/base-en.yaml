@@ -754,6 +754,12 @@ buildings:
             description: Available in sandbox mode only, outputs the given signal from the wires layer on the regular layer.
             description_short: Available in sandbox mode only, outputs the given signal from the wires layer on the regular layer.
 
+    marker:
+        default:
+            name: Marker
+            description: Marks a region of the map, using a flag, a label and a color highlight.
+            description_short: Marks a region of the map, using a flag, a label and a color highlight.
+
 storyRewards:
     # Those are the rewards gained from completing the store
     reward_cutter_and_trash:
@@ -1182,6 +1188,7 @@ keybindings:
         analyzer: *analyzer
         comparator: *comparator
         item_producer: Item Producer (Sandbox)
+        marker: Marker
         # ---
 
         pipette: Pipette

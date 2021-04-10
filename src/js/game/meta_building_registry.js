@@ -30,6 +30,7 @@ import { buildBuildingCodeCache, gBuildingVariants, registerBuildingVariant } fr
 import { enumWireVariant } from "./components/wire";
 import { KEYMAPPINGS } from "./key_action_mapper";
 import { defaultBuildingVariant } from "./meta_building";
+import { MetaMarkerBuilding } from "./buildings/marker";
 
 const logger = createLogger("building_registry");
 
@@ -59,6 +60,7 @@ export function initMetaBuildingRegistry() {
     gMetaBuildingRegistry.register(MetaAnalyzerBuilding);
     gMetaBuildingRegistry.register(MetaComparatorBuilding);
     gMetaBuildingRegistry.register(MetaItemProducerBuilding);
+    gMetaBuildingRegistry.register(MetaMarkerBuilding);
 
     // Belt
     registerBuildingVariant(1, MetaBeltBuilding, defaultBuildingVariant, 0);
@@ -164,6 +166,9 @@ export function initMetaBuildingRegistry() {
 
     // Item producer
     registerBuildingVariant(61, MetaItemProducerBuilding);
+
+    // Map marker
+    registerBuildingVariant(62, MetaMarkerBuilding);
 
     // Propagate instances
     for (const key in gBuildingVariants) {

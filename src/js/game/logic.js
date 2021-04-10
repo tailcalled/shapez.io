@@ -110,6 +110,7 @@ export class GameLogic {
             this.freeEntityAreaBeforeBuild(entity);
             this.root.map.placeStaticEntity(entity);
             this.root.entityMgr.registerEntity(entity);
+            building.doPlace(entity);
             return entity;
         }
         return null;

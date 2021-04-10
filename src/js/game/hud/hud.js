@@ -50,6 +50,7 @@ import { HUDCatMemes } from "./parts/cat_memes";
 import { HUDTutorialVideoOffer } from "./parts/tutorial_video_offer";
 import { HUDConstantSignalEdit } from "./parts/constant_signal_edit";
 import { HUDObnoxiousNotifications } from "./parts/obnoxious_notifications";
+import { HUDMarkerEdit } from "./parts/marker_edit";
 
 export class GameHUD {
     /**
@@ -88,6 +89,7 @@ export class GameHUD {
             waypoints: new HUDWaypoints(this.root),
             wireInfo: new HUDWireInfo(this.root),
             leverToggle: new HUDLeverToggle(this.root),
+            markerEdit: new HUDMarkerEdit(this.root),
             constantSignalEdit: new HUDConstantSignalEdit(this.root),
 
             // Must always exist
