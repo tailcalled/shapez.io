@@ -116,6 +116,16 @@ export class BaseMap extends BasicSerializableObject {
     }
 
     /**
+     * Overrides the lower layers content of the given tile
+     * @param {number} x
+     * @param {number} y
+     * @param {BaseItem=} newTile
+     */
+    setLowerLayerContentXY(x, y, newTile) {
+        this.getOrCreateChunkAtTile(x, y).setLowerLayerFromWorldCoords(x, y, newTile);
+    }
+
+    /**
      * Returns the tile content of a given tile
      * @param {number} x
      * @param {number} y

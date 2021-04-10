@@ -51,6 +51,7 @@ import { HUDTutorialVideoOffer } from "./parts/tutorial_video_offer";
 import { HUDConstantSignalEdit } from "./parts/constant_signal_edit";
 import { HUDObnoxiousNotifications } from "./parts/obnoxious_notifications";
 import { HUDMarkerEdit } from "./parts/marker_edit";
+import { HUDResourceNodeEdit } from "./parts/resource_node_edit";
 
 export class GameHUD {
     /**
@@ -90,6 +91,7 @@ export class GameHUD {
             wireInfo: new HUDWireInfo(this.root),
             leverToggle: new HUDLeverToggle(this.root),
             markerEdit: new HUDMarkerEdit(this.root),
+            resourceEdit: new HUDResourceNodeEdit(this.root),
             constantSignalEdit: new HUDConstantSignalEdit(this.root),
 
             // Must always exist

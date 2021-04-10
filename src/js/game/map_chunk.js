@@ -113,11 +113,14 @@ export class MapChunk {
         let patchesDrawn = 0;
 
         // Each patch consists of multiple circles
-        const numCircles = patchSize;
+        const numCircles = patchSize * 3;
 
         for (let i = 0; i <= numCircles; ++i) {
             // Determine circle parameters
-            const circleRadius = Math.min(1 + i, patchSize);
+            let circleRadius = Math.min(1 + i, patchSize);
+
+            circleRadius = Math.max(1, circleRadius / 1.5);
+
             const circleRadiusSquare = circleRadius * circleRadius;
             const circleOffsetRadius = (numCircles - i) / 2 + 2;
 
@@ -340,6 +343,15 @@ export class MapChunk {
         assert(localX < globalConfig.mapChunkSize, "Local X is >= chunk size");
         assert(localY < globalConfig.mapChunkSize, "Local Y is >= chunk size");
         return this.lowerLayer[localX][localY] || null;
+    }
+    setLowerLayerFromWorldCoords(x, y, newTile) {
+        const localX = x - this.tileX;
+        const localY = y - this.tileY;
+        assert(localX >= 0, "Local X is < 0");
+        assert(localY >= 0, "Local Y is < 0");
+        assert(localX < globalConfig.mapChunkSize, "Local X is >= chunk size");
+        assert(localY < globalConfig.mapChunkSize, "Local Y is >= chunk size");
+        this.lowerLayer[localX][localY] = newTile;
     }
 
     /**
