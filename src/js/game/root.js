@@ -144,6 +144,9 @@ export class GameRoot {
             entityQueuedForDestroy: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
             entityDestroyed: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
 
+            // Terrain
+            terrainModified: /** @type {TypedSignal<[Vector]>} */ (new Signal()),
+
             // Global
             resized: /** @type {TypedSignal<[number, number]>} */ (new Signal()),
             readyToRender: /** @type {TypedSignal<[]>} */ (new Signal()),

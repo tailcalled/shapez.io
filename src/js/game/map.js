@@ -5,6 +5,8 @@ import { BaseItem } from "./base_item";
 import { Entity } from "./entity";
 import { MapChunkView } from "./map_chunk_view";
 import { GameRoot } from "./root";
+import { gItemRegistry } from "../core/global_registries";
+import { typeItemSingleton } from "./item_resolver";
 
 export class BaseMap extends BasicSerializableObject {
     static getId() {
@@ -14,6 +16,7 @@ export class BaseMap extends BasicSerializableObject {
     static getSchema() {
         return {
             seed: types.uint,
+            edits: types.array(types.pair(types.vector, types.nullable(typeItemSingleton))),
         };
     }
 
@@ -31,6 +34,26 @@ export class BaseMap extends BasicSerializableObject {
          * Mapping of 'X|Y' to chunk
          * @type {Map<string, MapChunkView>} */
         this.chunksById = new Map();
+
+        /**
+         * @type {Array<[Vector, BaseItem?]>}
+         */
+        this.edits = [];
+
+        this.root.signals.terrainModified.add(this.appendEdit, this);
+    }
+
+    appendEdit(loc) {
+        this.edits.push([loc, this.getLowerLayerContentXY(loc.x, loc.y)]);
+    }
+    deserialize(data, root = null) {
+        let result = super.deserialize(data, root);
+        if (result) return result;
+        this.root.signals.terrainModified.remove(this.appendEdit);
+        for (let [pos, item] of this.edits) {
+            this.setLowerLayerContentXY(pos.x, pos.y, item);
+        }
+        this.root.signals.terrainModified.add(this.appendEdit, this);
     }
 
     /**
@@ -49,10 +72,14 @@ export class BaseMap extends BasicSerializableObject {
         if (createIfNotExistent) {
             const instance = new MapChunkView(this.root, chunkX, chunkY);
             this.chunksById.set(chunkIdentifier, instance);
+            instance.terrainChange.add(this.onChunkChanged, this);
             return instance;
         }
 
         return null;
+    }
+    onChunkChanged(loc) {
+        this.root.signals.terrainModified.dispatch(loc);
     }
 
     /**
