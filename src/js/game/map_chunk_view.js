@@ -25,6 +25,8 @@ export class MapChunkView extends MapChunk {
         this.renderIteration = 0;
 
         this.markDirty();
+
+        this.terrainChange.add(this.markDirty, this);
     }
 
     /**

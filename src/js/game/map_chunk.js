@@ -10,6 +10,7 @@ import { COLOR_ITEM_SINGLETONS } from "./items/color_item";
 import { GameRoot } from "./root";
 import { enumSubShape } from "./shape_definition";
 import { Rectangle } from "../core/rectangle";
+import { Signal } from "../core/signal";
 
 const logger = createLogger("map_chunk");
 
@@ -82,6 +83,11 @@ export class MapChunk {
          * @type {Array<{pos: Vector, item: BaseItem, size: number }>}
          */
         this.patches = [];
+
+        /**
+         * @type {TypedSignal<[Vector]>}
+         */
+        this.terrainChange = new Signal();
 
         this.generateLowerLayer();
     }
@@ -352,6 +358,7 @@ export class MapChunk {
         assert(localX < globalConfig.mapChunkSize, "Local X is >= chunk size");
         assert(localY < globalConfig.mapChunkSize, "Local Y is >= chunk size");
         this.lowerLayer[localX][localY] = newTile;
+        this.terrainChange.dispatch(new Vector(x, y));
     }
 
     /**
