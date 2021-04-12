@@ -288,7 +288,7 @@ export class Keybinding {
         this.builtin = builtin;
         this.repeated = repeated;
 
-        this.signal = new Signal();
+        this.signal = new Signal("keybinding");
         this.toggled = new Signal();
     }
 

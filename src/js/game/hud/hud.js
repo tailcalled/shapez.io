@@ -68,11 +68,11 @@ export class GameHUD {
         this.signals = {
             buildingSelectedForPlacement: /** @type {TypedSignal<[MetaBuilding|null]>} */ (new Signal()),
             selectedPlacementBuildingChanged: /** @type {TypedSignal<[MetaBuilding|null]>} */ (new Signal()),
-            shapePinRequested: /** @type {TypedSignal<[ShapeDefinition]>} */ (new Signal()),
-            shapeUnpinRequested: /** @type {TypedSignal<[string]>} */ (new Signal()),
+            shapePinRequested: /** @type {TypedSignal<[ShapeDefinition]>} */ (new Signal("pin")),
+            shapeUnpinRequested: /** @type {TypedSignal<[string]>} */ (new Signal("unpin")),
             notification: /** @type {TypedSignal<[string, enumNotificationType]>} */ (new Signal()),
-            buildingsSelectedForCopy: /** @type {TypedSignal<[Array<number>]>} */ (new Signal()),
-            pasteBlueprintRequested: /** @type {TypedSignal<[]>} */ (new Signal()),
+            buildingsSelectedForCopy: /** @type {TypedSignal<[Array<number>]>} */ (new Signal("copy")),
+            pasteBlueprintRequested: /** @type {TypedSignal<[]>} */ (new Signal("paste")),
             viewShapeDetailsRequested: /** @type {TypedSignal<[ShapeDefinition]>} */ (new Signal()),
             unlockNotificationFinished: /** @type {TypedSignal<[]>} */ (new Signal()),
         };

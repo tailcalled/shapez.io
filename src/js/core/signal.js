@@ -1,9 +1,16 @@
+import { DataConnection } from "../measurement/DataConnection";
+
 export const STOP_PROPAGATION = "stop_propagation";
 
+/** @type {DataConnection} */
+export let data_stream = null;
+
 export class Signal {
-    constructor() {
+    constructor(name) {
         this.receivers = [];
         this.modifyCount = 0;
+        /** @type {string} */
+        this.name = name;
     }
 
     /**
@@ -22,6 +29,9 @@ export class Signal {
      * @param  {...any} payload
      */
     dispatch() {
+        if (this.name && data_stream) {
+            data_stream.signalDispatch(name, arguments);
+        }
         const modifyState = this.modifyCount;
 
         const n = this.receivers.length;

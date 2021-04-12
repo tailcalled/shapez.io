@@ -136,16 +136,16 @@ export class GameRoot {
 
         this.signals = {
             // Entities
-            entityManuallyPlaced: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
+            entityManuallyPlaced: /** @type {TypedSignal<[Entity]>} */ (new Signal("place")),
             entityAdded: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
             entityChanged: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
             entityGotNewComponent: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
             entityComponentRemoved: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
-            entityQueuedForDestroy: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
+            entityQueuedForDestroy: /** @type {TypedSignal<[Entity]>} */ (new Signal("destroy")),
             entityDestroyed: /** @type {TypedSignal<[Entity]>} */ (new Signal()),
 
             // Terrain
-            terrainModified: /** @type {TypedSignal<[Vector]>} */ (new Signal()),
+            terrainModified: /** @type {TypedSignal<[Vector]>} */ (new Signal("terrain")),
 
             // Global
             resized: /** @type {TypedSignal<[number, number]>} */ (new Signal()),
@@ -158,8 +158,8 @@ export class GameRoot {
 
             gameFrameStarted: /** @type {TypedSignal<[]>} */ (new Signal()), // New frame
 
-            storyGoalCompleted: /** @type {TypedSignal<[number, string]>} */ (new Signal()),
-            upgradePurchased: /** @type {TypedSignal<[string]>} */ (new Signal()),
+            storyGoalCompleted: /** @type {TypedSignal<[number, string]>} */ (new Signal("completed goal")),
+            upgradePurchased: /** @type {TypedSignal<[string]>} */ (new Signal("upgrade")),
 
             // Called right after game is initialized
             postLoadHook: /** @type {TypedSignal<[]>} */ (new Signal()),
