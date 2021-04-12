@@ -45,12 +45,12 @@ function gulptasksHTML($, gulp, buildFolder) {
                         css.media = "none";
                         css.setAttribute("onload", "this.media='all'");
                         css.href = cachebust("main.css");
-                        if (integrity) {
+                        /*if (integrity) {
                             css.setAttribute(
                                 "integrity",
                                 computeIntegrityHash(path.join(buildFolder, "main.css"))
                             );
-                        }
+                        }*/
                         document.head.appendChild(css);
 
                         // Append async css
