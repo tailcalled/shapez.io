@@ -10,6 +10,7 @@ import { enumItemProcessorTypes, ItemProcessorComponent } from "../../components
 import { ShapeItem } from "../../items/shape_item";
 import { WireComponent } from "../../components/wire";
 import { LeverComponent } from "../../components/lever";
+import { MarkerComponent } from "../../components/marker";
 
 // @todo: Make dictionary
 const tutorialsByLevel = [
@@ -62,9 +63,37 @@ const tutorialsByLevel = [
                 3,
         },
     ],
-
-    // Level 3
+    // Level 2+1=3
     [
+        // 2a.1 place a cutter
+        {
+            id: "2a_1_place_marker",
+            condition: /** @param {GameRoot} root */ root =>
+                root.entityMgr.getAllWithComponent(MarkerComponent).length === 0,
+        },
+        // 2a.2 place trash
+        {
+            id: "2a_2_change_range",
+            condition: /** @param {GameRoot} root */ root =>
+                root.entityMgr
+                    .getAllWithComponent(MarkerComponent)
+                    .filter(
+                        e =>
+                            e.components.Marker.x0 !== -1 ||
+                            e.components.Marker.y0 !== -1 ||
+                            e.components.Marker.x1 !== 1 ||
+                            e.components.Marker.y1 !== 1
+                    ).length === 0,
+        },
+    ],
+
+    // Level 3+1=4
+    [
+        // 3.a/0. move resources
+        {
+            id: "3a_1_move_resource",
+            condition: /** @param {GameRoot} root */ root => root.map.edits.length < 1,
+        },
         // 3.1. rectangles
         {
             id: "3_1_rectangles",

@@ -75,7 +75,7 @@ export class HUDUnlockNotification extends BaseHUDPart {
         <div class="rewardName">
             ${T.ingame.levelCompleteNotification.unlockText.replace("<reward>", rewardName)}
         </div>
-        
+
         <div class="rewardDesc">
             ${T.storyRewards[reward].desc}
         </div>
@@ -135,7 +135,7 @@ export class HUDUnlockNotification extends BaseHUDPart {
                 return;
             }
 
-            if (this.root.hubGoals.level === 3) {
+            if (this.root.hubGoals.level === 4) {
                 const { showUpgrades } = this.root.hud.parts.dialogs.showInfo(
                     T.dialogs.upgradesIntroduction.title,
                     T.dialogs.upgradesIntroduction.desc,
@@ -144,7 +144,7 @@ export class HUDUnlockNotification extends BaseHUDPart {
                 showUpgrades.add(() => this.root.hud.parts.shop.show());
             }
 
-            if (this.root.hubGoals.level === 5) {
+            if (this.root.hubGoals.level === 6) {
                 const { showKeybindings } = this.root.hud.parts.dialogs.showInfo(
                     T.dialogs.keybindingsIntroduction.title,
                     T.dialogs.keybindingsIntroduction.desc,

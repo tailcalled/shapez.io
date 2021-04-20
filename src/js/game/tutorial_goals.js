@@ -35,4 +35,6 @@ export const enumHubGoalRewards = {
 
     no_reward: "no_reward",
     no_reward_freeplay: "no_reward_freeplay",
+
+    reward_marker: "reward_marker",
 };

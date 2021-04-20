@@ -28,7 +28,7 @@ export class HUDGameMenu extends BaseHUDPart {
                     enumNotificationType.upgrade,
                 ]),
                 visible: () =>
-                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 3,
+                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 4,
             },
             {
                 id: "stats",
@@ -36,7 +36,7 @@ export class HUDGameMenu extends BaseHUDPart {
                 handler: () => this.root.hud.parts.statistics.show(),
                 keybinding: KEYMAPPINGS.ingame.menuOpenStats,
                 visible: () =>
-                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 3,
+                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 4,
             },
             {
                 id: "fastforward",
@@ -50,7 +50,7 @@ export class HUDGameMenu extends BaseHUDPart {
                 },
                 keybinding: KEYMAPPINGS.ingame.menuFastForward,
                 visible: () =>
-                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 3,
+                    !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 4,
             },
         ];
 

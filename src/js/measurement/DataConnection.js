@@ -4,11 +4,14 @@ import { Application } from "../application";
 
 import { createLogger } from "../core/logging";
 import { BasicSerializableObject, types } from "../savegame/serialization";
+import { Signal } from "../core/signal";
+import { Vector } from "../core/vector";
 
 const logger = createLogger("data_connection");
 
 export class DataConnection {
     constructor(app) {
+        /** @type {Application} */
         this.app = app;
 
         /** @type {WebSocket|null} */
@@ -16,6 +19,8 @@ export class DataConnection {
 
         /** @type {Array<Array<string>>} */
         this.signals = [];
+
+        Signal.data_stream = this;
     }
 
     initialize() {
@@ -41,17 +46,25 @@ export class DataConnection {
 
     collectDataAsync(data) {
         return new Promise((resolve, reject) => {
-            //this.socket.send(JSON.stringify(this.signals));
+            this.socket.send(JSON.stringify(this.signals));
             this.signals = [];
             this.socket.send(data);
             resolve(null);
         });
     }
     signalDispatch(name, args) {
-        let parts = [name];
+        let parts = [name, new Date().getTime()];
         for (let arg of args) {
             if (arg instanceof BasicSerializableObject) {
-                parts.push(args.serialize());
+                parts.push(arg.serialize());
+            } else if (typeof arg == "string" || typeof arg == "number") {
+                parts.push(arg);
+            } else if (arg instanceof Vector) {
+                parts.push(arg.x, arg.y);
+            } else if (Array.isArray(arg)) {
+                parts.push(...arg);
+            } else {
+                alert(arg);
             }
         }
         this.signals.push(parts);

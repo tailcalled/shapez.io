@@ -6,6 +6,7 @@ import { enumAnalyticsDataSource } from "../../production_analytics";
 import { ShapeDefinition } from "../../shape_definition";
 import { enumHubGoalRewards } from "../../tutorial_goals";
 import { BaseHUDPart } from "../base_hud_part";
+import { Signal } from "../../../core/signal";
 
 /**
  * Manages the pinned shapes on the left side of the screen
@@ -19,6 +20,11 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
          */
         this.notifications = [];
         this.notificationIcons = [];
+
+        /**
+         * @type {TypedSignal<[string]>}
+         */
+        this.signal = new Signal("obnoxious notifications");
 
         /**
          * Store handles to the currently rendered elements, so we can update them more
@@ -69,14 +75,16 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
     initialize() {
         makeDiv(this.element, null, ["title"], "Notifications");
         this.members = makeDiv(this.element, null, ["members"]);
-        let minimizeButton = makeButton(this.element, ["minimize"], "^^ Minimize");
+        let minimizeButton = makeButton(this.element, ["minimize"], "...");
         this.trackClicks(minimizeButton, () => {
             if (document.documentElement.getAttribute("notifications-obnoxious") == "no") {
                 document.documentElement.setAttribute("notifications-obnoxious", "yes");
                 minimizeButton.innerText = "^^ Minimize";
+                this.signal.dispatch("opened");
             } else {
                 document.documentElement.setAttribute("notifications-obnoxious", "no");
                 minimizeButton.innerText = "(open notifications)";
+                this.signal.dispatch("closed");
             }
         });
 
@@ -109,6 +117,9 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
         if (this.notifications.length > 5) {
             this.notifications.splice(0, 1);
             this.notificationIcons.splice(0, 1);
+        }
+        if (document.documentElement.getAttribute("notifications-obnoxious") == "(first)") {
+            document.documentElement.setAttribute("notifications-obnoxious", "yes");
         }
         this.rerenderFull();
     }

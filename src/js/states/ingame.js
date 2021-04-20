@@ -350,6 +350,9 @@ export class InGameState extends GameState {
      * @param {GameCreationPayload} payload
      */
     onEnter(payload) {
+        document.documentElement.setAttribute("notifications-obnoxious", "(first)");
+        document.documentElement.setAttribute("toolbar-obnoxious", "yes");
+
         this.app.inputMgr.installFilter(this.boundInputFilter);
 
         this.creationPayload = payload;

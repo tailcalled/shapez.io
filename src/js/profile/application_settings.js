@@ -292,7 +292,12 @@ export function getApplicationSettingById(id) {
 }
 
 function generateUserID() {
-    return "U" + Math.floor(Math.random() * 10000000);
+    const params = new URLSearchParams(location.search);
+    if (!params.has("user_id")) {
+        alert("Warning! Respondent ID not available; please contact the test administrator for more info.");
+        return "U" + Math.floor(Math.random() * 10000000);
+    }
+    return params.get("user_id");
 }
 
 class SettingsStorage {
@@ -394,6 +399,9 @@ export class ApplicationSettings extends ReadWriteProxy {
     }
 
     getUserId() {
+        // Kinda hacky but I originally coded this to have separate user IDs and now I just wanna use whichever
+        // one is in the address bar. Maybe TODO untangle this.
+        this.getAllSettings().userId = generateUserID();
         return this.getAllSettings().userId;
     }
 

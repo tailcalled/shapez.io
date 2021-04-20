@@ -16,6 +16,8 @@ import { enumUndergroundBeltVariants, MetaUndergroundBeltBuilding } from "./buil
 import { defaultBuildingVariant, MetaBuilding } from "./meta_building";
 /** @typedef {Array<[typeof MetaBuilding, string]>} TutorialGoalReward */
 import { enumHubGoalRewards } from "./tutorial_goals";
+import { type } from "os";
+import { MetaMarkerBuilding } from "./buildings/marker";
 
 /**
  * Helper method for proper types
@@ -65,6 +67,8 @@ export const enumHubGoalRewardsToContentUnlocked = {
     [enumHubGoalRewards.no_reward]: null,
     [enumHubGoalRewards.no_reward_freeplay]: null,
     [enumHubGoalRewards.reward_demo_end]: null,
+
+    [enumHubGoalRewards.reward_marker]: typed([[MetaMarkerBuilding, defaultBuildingVariant]]),
 };
 
 if (G_IS_DEV) {

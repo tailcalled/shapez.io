@@ -1,5 +1,5 @@
 import { gMetaBuildingRegistry } from "../../../core/global_registries";
-import { STOP_PROPAGATION } from "../../../core/signal";
+import { STOP_PROPAGATION, Signal } from "../../../core/signal";
 import { makeDiv, safeModulo, makeButton } from "../../../core/utils";
 import { KEYMAPPINGS } from "../../key_action_mapper";
 import { MetaBuilding } from "../../meta_building";
@@ -39,6 +39,11 @@ export class HUDBaseToolbar extends BaseHUDPart {
          * index: number
          * }>} */
         this.buildingHandles = {};
+
+        /**
+         * @type {TypedSignal<[string]>}
+         */
+        this.signal = new Signal();
     }
 
     /**
@@ -60,14 +65,16 @@ export class HUDBaseToolbar extends BaseHUDPart {
     initialize() {
         const actionMapper = this.root.keyMapper;
 
-        const minimizeButton = makeButton(this.element, ["obnoxious-button"], "(open toolbar)");
+        const minimizeButton = makeButton(this.element, ["obnoxious-button"], "W MINIMIZE");
         this.trackClicks(minimizeButton, () => {
             if (document.documentElement.getAttribute("toolbar-obnoxious") == "yes") {
                 document.documentElement.setAttribute("toolbar-obnoxious", "no");
                 minimizeButton.innerText = "(open toolbar)";
+                this.signal.dispatch("closed");
             } else {
                 document.documentElement.setAttribute("toolbar-obnoxious", "yes");
                 minimizeButton.innerText = "W MINIMIZE";
+                this.signal.dispatch("opened");
             }
         });
 

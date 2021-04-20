@@ -38,7 +38,7 @@ export class MetaMarkerBuilding extends MetaBuilding {
      * @param {GameRoot} root
      */
     getIsUnlocked(root) {
-        return true;
+        return root.hubGoals.isRewardUnlocked(enumHubGoalRewards.reward_marker);
     }
 
     /**

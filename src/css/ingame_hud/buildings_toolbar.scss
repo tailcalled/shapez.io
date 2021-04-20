@@ -22,14 +22,14 @@
     .obnoxious-button {
         float: right;
         position: absolute;
-        @include S(top, -20px);
+        @include S(top, -25px);
         right: 0;
         background-color: rgba(240, 241, 243, 0.5);
         color: #bbb;
 
         @include ToolbarObnoxious {
             color: #fff;
-            background-color: #44484a;
+            background-color: #34444d;
             background: solid;
         }
     }
@@ -146,6 +146,9 @@
                     @include PlainText;
                     color: #fff;
                     text-transform: uppercase;
+                }
+                div {
+                    @include S(line-height, 0.8);
                 }
             }
 

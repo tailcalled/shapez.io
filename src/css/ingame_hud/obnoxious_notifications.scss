@@ -3,6 +3,10 @@
         &[notifications-obnoxious="no"] {
         @content;
     }
+    @at-root html[notifications-obnoxious="(first)"] &,
+        &[notifications-obnoxious="(first)"] {
+        @content;
+    }
 }
 
 #ingame_HUD_ObnoxiousNotifications {

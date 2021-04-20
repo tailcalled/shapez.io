@@ -232,10 +232,18 @@ export function generateLevelDefinitions(limitedVersion = false) {
         {
             shape: "----CuCu", //
             required: 40,
-            reward: enumHubGoalRewards.no_reward,
+            reward: enumHubGoalRewards.reward_marker,
         },
 
         // 3
+        // Shop
+        {
+            shape: "----CuCu", //
+            required: 120,
+            reward: enumHubGoalRewards.no_reward,
+        },
+
+        // 3+1=4
         // Rectangle
         {
             shape: "RuRuRuRu", // miners t1
@@ -243,14 +251,14 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_balancer,
         },
 
-        // 4
+        // 4+1=5
         {
             shape: "RuRu----", // processors t2
             required: 70,
             reward: enumHubGoalRewards.reward_rotater,
         },
 
-        // 5
+        // 5+1=6
         // Rotater
         {
             shape: "Cu----Cu", // belts t2
@@ -258,14 +266,14 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_tunnel,
         },
 
-        // 6
+        // 6+1=7
         {
             shape: "Cu------", // miners t2
             required: 270,
             reward: enumHubGoalRewards.reward_painter,
         },
 
-        // 7
+        // 7+1=8
         // Painter
         {
             shape: "CrCrCrCr", // unused
@@ -273,14 +281,14 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_rotater_ccw,
         },
 
-        // 8
+        // 8+1=9
         {
             shape: "RbRb----", // painter t2
             required: 480,
             reward: enumHubGoalRewards.reward_mixer,
         },
 
-        // 9
+        // 9+1=10
         // Mixing (purple)
         {
             shape: "CpCpCpCp", // belts t3
@@ -288,7 +296,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_merger,
         },
 
-        // 10
+        // 10+1=11
         // STACKER: Star shape + cyan
         {
             shape: "ScScScSc", // miners t3
@@ -296,7 +304,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_stacker,
         },
 
-        // 11
+        // 11+1=12
         // Chainable miner
         {
             shape: "CgScScCg", // processors t3
@@ -304,7 +312,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_miner_chainable,
         },
 
-        // 12
+        // 12+1=13
         // Blueprints
         {
             shape: "CbCbCbRb:CwCwCwCw",
@@ -312,7 +320,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
             reward: enumHubGoalRewards.reward_blueprints,
         },
 
-        // 13
+        // 13+1=14
         // Tunnel Tier 2
         {
             shape: "RpRpRpRp:CwCwCwCw", // painting t3
@@ -330,7 +338,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                   },
               ]
             : [
-                  // 14
+                  // 14+1=15
                   // Belt reader
                   {
                       shape: "--Cg----:--Cr----", // unused
@@ -339,7 +347,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       throughputOnly: true,
                   },
 
-                  // 15
+                  // 15+1=16
                   // Storage
                   {
                       shape: "SrSrSrSr:CyCyCyCy", // unused
@@ -347,7 +355,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_storage,
                   },
 
-                  // 16
+                  // 16+1=17
                   // Quad Cutter
                   {
                       shape: "SrSrSrSr:CyCyCyCy:SwSwSwSw", // belts t4 (two variants)
@@ -355,7 +363,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_cutter_quad,
                   },
 
-                  // 17
+                  // 17+1=18
                   // Double painter
                   {
                       shape: "CbRbRbCb:CwCwCwCw:WbWbWbWb", // miner t4 (two variants)
@@ -363,7 +371,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_painter_double,
                   },
 
-                  // 18
+                  // 18+1=19
                   // Rotater (180deg)
                   {
                       shape: "Sg----Sg:CgCgCgCg:--CyCy--", // unused
@@ -371,7 +379,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_rotater_180,
                   },
 
-                  // 19
+                  // 19+1=20
                   // Compact splitter
                   {
                       shape: "CpRpCp--:SwSwSwSw",
@@ -379,7 +387,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_splitter,
                   },
 
-                  // 20
+                  // 20+1=21
                   // WIRES
                   {
                       shape: finalGameShape,
@@ -387,7 +395,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_wires_painter_and_levers,
                   },
 
-                  // 21
+                  // 21+1=22
                   // Filter
                   {
                       shape: "CrCwCrCw:CwCrCwCr:CrCwCrCw:CwCrCwCr",
@@ -395,7 +403,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_filter,
                   },
 
-                  // 22
+                  // 22+1=23
                   // Constant signal
                   {
                       shape: "Cg----Cr:Cw----Cw:Sy------:Cy----Cy",
@@ -403,7 +411,7 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_constant_signal,
                   },
 
-                  // 23
+                  // 23+1=24
                   // Display
                   {
                       shape: "CcSyCcSy:SyCcSyCc:CcSyCcSy",
@@ -411,21 +419,21 @@ export function generateLevelDefinitions(limitedVersion = false) {
                       reward: enumHubGoalRewards.reward_display,
                   },
 
-                  // 24 Logic gates
+                  // 24+1=25 Logic gates
                   {
                       shape: "CcRcCcRc:RwCwRwCw:Sr--Sw--:CyCyCyCy",
                       required: 25000,
                       reward: enumHubGoalRewards.reward_logic_gates,
                   },
 
-                  // 25 Virtual Processing
+                  // 25+1=26 Virtual Processing
                   {
                       shape: "Rg--Rg--:CwRwCwRw:--Rg--Rg",
                       required: 25000,
                       reward: enumHubGoalRewards.reward_virtual_processing,
                   },
 
-                  // 26 Freeplay
+                  // 26+1=27 Freeplay
                   {
                       shape: "CbCuCbCu:Sr------:--CrSrCr:CwCwCwCw",
                       required: 50000,

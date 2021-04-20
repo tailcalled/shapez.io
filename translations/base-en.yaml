@@ -258,8 +258,8 @@ dialogs:
         desc: Give it a meaningful name, you can also include a <strong>short key</strong> of a shape (Which you can generate <link>here</link>)
 
     placeMarker:
-        title: New Marker
-        titleEdit: Edit Marker
+        title: New Flag
+        titleEdit: Edit Flag
         desc: Give it a meaningful name
 
     editSignal:
@@ -444,6 +444,15 @@ ingame:
             2_3_more_cutters: >-
                 Good job! Now place <strong>2 more cutters</strong> to speed up this slow process!<br><br>
                 PS: Use the <strong>0-9 hotkeys</strong> to access buildings faster!
+
+            2a_1_place_marker: >-
+                Now place a <strong>Flag</strong> next to your miners to label your production and keep things organized!
+
+            2a_2_change_range: >-
+                Click and drag the edge of the <strong>Flag</strong>'s blue region to make it cover your miners.
+
+            3a_1_move_resource: >-
+                You can move resources a short distance by clicking and dragging. Do this with some rectangles to create a more convenient mining area.
 
             3_1_rectangles: >-
                 Now let's extract some rectangles! <strong>Build 4 extractors</strong> and connect them to the hub.<br><br>
@@ -761,8 +770,8 @@ buildings:
 
     marker:
         default:
-            name: Marker
-            description: Marks a region of the map, using a flag, a label and a color highlight.
+            name: Flag
+            description: Marks a region of the map, using a flag, a label and a color highlight. Click and drag the edge of the marked region to modify it.
             description_short: Marks a region of the map, using a flag, a label and a color highlight.
 
 storyRewards:
@@ -927,6 +936,10 @@ storyRewards:
         title: End of Demo
         desc: >-
             You have reached the end of the demo version!
+
+    reward_marker:
+        title: Flag
+        desc: You just unlocked the marker flag! It allows you to name and mark regions of the map.
 
 settings:
     title: Settings
@@ -1193,7 +1206,7 @@ keybindings:
         analyzer: *analyzer
         comparator: *comparator
         item_producer: Item Producer (Sandbox)
-        marker: Marker
+        marker: Flag
         # ---
 
         pipette: Pipette

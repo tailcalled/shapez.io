@@ -56,7 +56,7 @@ export const KEYMAPPINGS = {
         mixer: { keyCode: key("8") },
         painter: { keyCode: key("9") },
         trash: { keyCode: key("0") },
-        marker: { keyCode: key("M") },
+        marker: { keyCode: key("N") },
 
         // Sandbox
         item_producer: { keyCode: key("L") },
@@ -288,7 +288,7 @@ export class Keybinding {
         this.builtin = builtin;
         this.repeated = repeated;
 
-        this.signal = new Signal("keybinding");
+        this.signal = new Signal();
         this.toggled = new Signal();
     }
 
