@@ -191,9 +191,8 @@ export class InGameState extends GameState {
             this.stageDestroyed();
             if (stateId == "MainMenuState" && !window.location.host.startsWith("localhost")) {
                 window.open("https://testrun.izpanel.psy.ku.dk/");
-            } else {
-                this.moveToState(stateId, payload);
             }
+            this.moveToState(stateId, payload);
         });
     }
 
