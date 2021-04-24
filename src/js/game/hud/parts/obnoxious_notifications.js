@@ -87,6 +87,7 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
                 this.signal.dispatch("closed");
             }
         });
+        this.minimizeButton = minimizeButton;
 
         // Perform initial render
         this.rerenderFull();
@@ -120,6 +121,7 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
         }
         if (document.documentElement.getAttribute("notifications-obnoxious") == "(first)") {
             document.documentElement.setAttribute("notifications-obnoxious", "yes");
+            this.minimizeButton.innerText = "^^ Minimize";
         }
         this.rerenderFull();
     }

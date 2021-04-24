@@ -53,6 +53,9 @@ export class HUDGameMenu extends BaseHUDPart {
                     !this.root.app.settings.getAllSettings().offerHints || this.root.hubGoals.level >= 4,
             },
         ];
+        if (!window.location.host.startsWith("localhost")) {
+            buttons.pop();
+        }
 
         /** @type {Array<{
          * badge: function,

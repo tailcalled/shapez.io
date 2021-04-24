@@ -270,6 +270,12 @@ export class HUDKeybindingOverlay extends BaseHUDPart {
             },
         ];
 
+        if (!window.location.host.startsWith("localhost")) {
+            this.keybindings = this.keybindings.filter(
+                it => it.label !== T.ingame.keybindingsOverlay.fastForward
+            );
+        }
+
         if (!this.root.app.settings.getAllSettings().alwaysMultiplace) {
             this.keybindings.push({
                 // Multiplace
