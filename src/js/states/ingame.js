@@ -190,7 +190,7 @@ export class InGameState extends GameState {
         this.doSave().then(() => {
             this.stageDestroyed();
             if (stateId == "MainMenuState" && !window.location.host.startsWith("localhost")) {
-                window.location.href = "https://testrun.izpanel.psy.ku.dk/";
+                window.open("https://testrun.izpanel.psy.ku.dk/");
             } else {
                 this.moveToState(stateId, payload);
             }
