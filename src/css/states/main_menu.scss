@@ -42,6 +42,7 @@
 
         .languageChoose {
             @include S(border-radius, 8px);
+            display: none;
             border: solid #222428;
             background-color: #fff;
             @include S(border-width, 2px);

@@ -116,7 +116,8 @@ export class PreloadState extends GameState {
             .then(() => this.setStatus("Initializing language"))
             .then(() => {
                 if (this.app.settings.getLanguage() === "auto-detect") {
-                    const language = autoDetectLanguageId();
+                    // I can't provide translations for every language - let's just keep everything in english
+                    const language = "en"; //autoDetectLanguageId();
                     logger.log("Setting language to", language);
                     return this.app.settings.updateLanguage(language);
                 }

@@ -122,6 +122,7 @@ export class HUDObnoxiousNotifications extends BaseHUDPart {
         if (document.documentElement.getAttribute("notifications-obnoxious") == "(first)") {
             document.documentElement.setAttribute("notifications-obnoxious", "yes");
             this.minimizeButton.innerText = "^^ Minimize";
+            this.signal.dispatch("first notification");
         }
         this.rerenderFull();
     }
