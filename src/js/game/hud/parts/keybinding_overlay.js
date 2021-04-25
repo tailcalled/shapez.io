@@ -210,7 +210,7 @@ export class HUDKeybindingOverlay extends BaseHUDPart {
                 // Rotate
                 label: T.ingame.keybindingsOverlay.rotateBuilding,
                 keys: [k.placement.rotateWhilePlacing],
-                condition: () => this.anyPlacementActive && !this.beltPlannerActive,
+                condition: () => true, //this.anyPlacementActive && !this.beltPlannerActive,
             },
 
             {

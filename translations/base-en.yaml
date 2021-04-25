@@ -456,7 +456,10 @@ ingame:
 
             3_1_rectangles: >-
                 Now let's extract some rectangles! <strong>Build 4 extractors</strong> and connect them to the hub.<br><br>
-                PS: Hold <strong>SHIFT</strong> while dragging a belt to activate the belt planner!
+                PS: Hold <strong>SHIFT</strong> while dragging a belt to activate the belt planner! And press <strong>R</strong> while building to rotate the building that you are placing.
+
+            10_1_exit: >-
+                Continue playing the game for as long as you would like. Once you are done playing, go back to the survey by using the menu to exit.
 
             21_1_place_quad_painter: >-
                 Place the <strong>quad painter</strong> and get some <strong>circles</strong>, <strong>white</strong> and <strong>red</strong> color!

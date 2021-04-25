@@ -118,11 +118,32 @@ const tutorialsByLevel = [
     [], // Level 7
     [], // Level 8
     [], // Level 9
-    [], // Level 10
+    // Level 10 + 1 = 11
+    [
+        // 10.1. exit
+        {
+            id: "10_1_exit",
+            condition: /** @param {GameRoot} root */ root => (root.time.realtimeSeconds / 40) % 6 < 1,
+        },
+    ],
     [], // Level 11
-    [], // Level 12
+    // Level 12+1=13
+    [
+        // ~~10~~12.1. exit
+        {
+            id: "10_1_exit",
+            condition: /** @param {GameRoot} root */ root => (root.time.realtimeSeconds / 40) % 6 < 1,
+        },
+    ],
     [], // Level 13
-    [], // Level 14
+    // Level 14+1=15
+    [
+        // ~~10~~15.1. exit
+        {
+            id: "10_1_exit",
+            condition: /** @param {GameRoot} root */ root => (root.time.realtimeSeconds / 40) % 6 < 1,
+        },
+    ],
     [], // Level 15
     [], // Level 16
     [], // Level 17

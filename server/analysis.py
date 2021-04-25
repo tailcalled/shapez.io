@@ -413,7 +413,7 @@ class MapState:
                     belt_path, n_turns = self.trace_belt(ent)
                     used.update(belt_path)
                     all_belt_turns.append(n_turns)
-        return used, sum(all_belt_turns)/len(all_belt_turns)
+        return used, sum(all_belt_turns)/max(1, len(all_belt_turns))
 class Module:
     def __init__(self, configuration, repeats, offset, machines):
         self.bb = (
@@ -439,7 +439,7 @@ async def main():
         modules, machines_in_modules = map.identify_modules()
         paths, n_turns = map.identify_connecting_paths()
         n_obs.append(len(obsolete))
-        break
+        #break
     plt.plot(np.arange(len(n_obs)), n_obs)
     plt.xlabel("save # (could also have chosen playtime)")
     plt.ylabel("# of obsolete machines")

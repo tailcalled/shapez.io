@@ -6,6 +6,10 @@
     @include StyleBelowWidth(1430px) {
         @include S(bottom, 50px);
     }
+    @at-root html[toolbar-obnoxious="yes"] &,
+        &[toolbar-obnoxious="yes"] {
+        @include S(bottom, 130);
+    }
 
     display: flex;
     flex-direction: column;

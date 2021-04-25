@@ -56,6 +56,10 @@ export class HUDPartTutorialHints extends BaseHUDPart {
     }
 
     updateVideoUrl(level) {
+        // we inserted an extra level at level 3 so let's just repeat the hints there
+        if (level >= 3) {
+            level = level - 1;
+        }
         if (tutorialVideos.indexOf(level) < 0) {
             this.videoElement.querySelector("source").setAttribute("src", "");
             this.videoElement.pause();

@@ -22,12 +22,18 @@ async def stream_client_data(websocket, path):
         events = await websocket.recv()
         message = await websocket.recv()
         print(events)
-        await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData) VALUES (:userId, :storeTime, :eventData)", values =
-            {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : events}
-        )
-        await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =
-            {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : message}
-        )
+        try:
+            await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData) VALUES (:userId, :storeTime, :eventData)", values =
+                {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : events}
+            )
+        except:
+            print("Error: ", sys.exc_info()[0])
+        try:
+            await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =
+                {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : message}
+            )
+        except:
+            print("Error: ", sys.exc_info()[0])
 
 async def main():
     await database.connect()

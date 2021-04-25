@@ -190,7 +190,14 @@ export class InGameState extends GameState {
         this.doSave().then(() => {
             this.stageDestroyed();
             if (stateId == "MainMenuState" && !window.location.host.startsWith("localhost")) {
-                window.open("https://testrun.izpanel.psy.ku.dk/");
+                const params = new URLSearchParams(location.search);
+                if (params.has("user_id")) {
+                    window.open("https://testrun.izpanel.psy.ku.dk/?code=" + params.get("user_id"));
+                } else {
+                    // not sure how we'd end up in this situation...
+                    // but I guess cross fingers, hope something sensible happens?
+                    window.open("https://testrun.izpanel.psy.ku.dk/");
+                }
             }
             this.moveToState(stateId, payload);
         });
