@@ -4,6 +4,7 @@ import lzstring
 from databases import Database
 import datetime
 import os
+import sys
 
 dbpath = "/data.db"
 if os.getcwd().endswith("/server"):
@@ -19,21 +20,27 @@ async def stream_client_data(websocket, path):
     count = await database.fetch_all(query = "SELECT COUNT(*) FROM Saves WHERE userId = :userId", values={"userId" : identifier})
     print(f"Count: " + str(count), flush=True)
     while True:
-        events = await websocket.recv()
-        message = await websocket.recv()
-        print(events, flush=True)
-        try:
-            await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData) VALUES (:userId, :storeTime, :eventData)", values =
-                {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : events}
-            )
-        except:
-            print("Error: ", sys.exc_info()[0], flush=True)
-        try:
-            await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =
-                {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : message}
-            )
-        except:
-            print("Error: ", sys.exc_info()[0], flush=True)
+        msg_id = await websocket.recv()
+        msg_payload = await websocket.recv()
+        await websocket.send(msg_id)
+        if msg_payload.startswith("EVENT:"):
+            event = msg_payload[len("EVENT:"):]
+            print(event, flush=True)
+            try:
+                await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData) VALUES (:userId, :storeTime, :eventData)", values =
+                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : event}
+                )
+            except:
+                print("Error: ", sys.exc_info()[0], flush=True)
+        elif msg_payload.startswith("SAVE:"):
+            save_data = msg_payload[len("SAVE:"):]
+            print("sent save data", flush=True)
+            try:
+                await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =
+                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : save_data}
+                )
+            except:
+                print("Error: ", sys.exc_info()[0], flush=True)
 
 async def main():
     await database.connect()

@@ -21,10 +21,25 @@ export class DataConnection {
         this.signals = [];
 
         Signal.data_stream = this;
+
+        /** @type {number} */
+        this.packet_id = new Date().getTime();
+
+        /** @type {Array<[number,string]>} */
+        this.packets = [];
+
+        this.timeout_id = null;
     }
 
     initialize() {
+        return this.connect();
+    }
+    reconnect(event) {
+        this.connect();
+    }
+    connect() {
         let userId = this.app.settings.getUserId();
+        let self = this;
         return new Promise((resolve, reject) => {
             let host = window.location.hostname;
             if (host == "localhost") {
@@ -38,17 +53,45 @@ export class DataConnection {
                 resolve(socket);
             };
             socket.onerror = function (event) {
-                alert("Could not connect to server");
+                alert(
+                    "Could not connect to server; please contact survey administration as this can result in data loss."
+                );
                 reject(event);
+            };
+            socket.onclose = function (event) {
+                self.reconnect(event);
+            };
+            socket.onmessage = function (event) {
+                self.confirm(event);
             };
         }).then(socket => (this.socket = socket));
     }
 
+    trySend(msg) {
+        this.packets.push([this.packet_id++, msg]);
+        if (this.timeout_id) {
+            clearTimeout(this.timeout_id);
+        }
+        this.timeout_id = setTimeout(() => {
+            this.timeout_id = null;
+            this.flushPackets();
+        }, 500);
+    }
+    flushPackets() {
+        for (let packet of this.packets) {
+            this.socket.send(packet[0].toString());
+            this.socket.send(packet[1]);
+        }
+    }
+    /** @param {MessageEvent} event */
+    confirm(event) {
+        let confirmation_id = parseFloat(event.data);
+        this.packets = this.packets.filter(packet => packet[0] <= confirmation_id);
+    }
+
     collectDataAsync(data) {
         return new Promise((resolve, reject) => {
-            this.socket.send(JSON.stringify(this.signals));
-            this.signals = [];
-            this.socket.send(data);
+            this.trySend("SAVE:" + data);
             resolve(null);
         });
     }
@@ -67,6 +110,6 @@ export class DataConnection {
                 alert(arg);
             }
         }
-        this.signals.push(parts);
+        this.trySend("EVENT:" + JSON.stringify(parts));
     }
 }

@@ -440,6 +440,8 @@ async def main():
         paths, n_turns = map.identify_connecting_paths()
         n_obs.append(len(obsolete))
         #break
+    print(decompressed_data)
+    return
     plt.plot(np.arange(len(n_obs)), n_obs)
     plt.xlabel("save # (could also have chosen playtime)")
     plt.ylabel("# of obsolete machines")

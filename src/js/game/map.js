@@ -44,6 +44,7 @@ export class BaseMap extends BasicSerializableObject {
     }
 
     appendEdit(loc) {
+        this.edits = this.edits.filter(edit => !edit[0].equals(loc));
         this.edits.push([loc, this.getLowerLayerContentXY(loc.x, loc.y)]);
     }
     deserialize(data, root = null) {
