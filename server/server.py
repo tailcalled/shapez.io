@@ -9,7 +9,7 @@ import sys
 dbpath = "/data.db"
 if os.getcwd().endswith("/server"):
     print("Sending data to local database")
-    dbpath = "../../../data.db"
+    dbpath = "../../../data_server.db"
 
 database = Database("sqlite://" + dbpath)
 
@@ -27,8 +27,8 @@ async def stream_client_data(websocket, path):
             event = msg_payload[len("EVENT:"):]
             print(event, flush=True)
             try:
-                await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData) VALUES (:userId, :storeTime, :eventData)", values =
-                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : event}
+                await database.execute(query = "INSERT INTO Events(userId, storeTime, eventData, debounceId) VALUES (:userId, :storeTime, :eventData, :debounceId)", values =
+                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "eventData" : event, "debounceId": msg_id}
                 )
             except:
                 print("Error: ", sys.exc_info()[0], flush=True)
@@ -36,8 +36,8 @@ async def stream_client_data(websocket, path):
             save_data = msg_payload[len("SAVE:"):]
             print("sent save data", flush=True)
             try:
-                await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData) VALUES (:userId, :storeTime, :compressedSaveData)", values =
-                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : save_data}
+                await database.execute(query = "INSERT INTO Saves(userId, storeTime, compressedSaveData, debounceId) VALUES (:userId, :storeTime, :compressedSaveData, :debounceId)", values =
+                    {"userId" : identifier, "storeTime" : datetime.datetime.now().isoformat(), "compressedSaveData" : save_data, "debounceId": msg_id}
                 )
             except:
                 print("Error: ", sys.exc_info()[0], flush=True)
@@ -45,7 +45,15 @@ async def stream_client_data(websocket, path):
 async def main():
     await database.connect()
     await database.execute(query = "CREATE TABLE IF NOT EXISTS Saves(userId TEXT, storeTime TEXT, compressedSaveData TEXT)")
+    try:
+        await database.execute(query = "ALTER TABLE Saves ADD COLUMN debounceId TEXT")
+    except:
+        print("Debounce ID already exists")
     await database.execute(query = "CREATE TABLE IF NOT EXISTS Events(userId TEXT, storeTime TEXT, eventData TEXT)")
+    try:
+        await database.execute(query = "ALTER TABLE Events ADD COLUMN debounceId TEXT")
+    except:
+        print("Debounce ID already exists")
     await websockets.serve(stream_client_data, "127.0.0.1", 3006)
 
 asyncio.get_event_loop().run_until_complete(main())
